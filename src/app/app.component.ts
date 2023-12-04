@@ -1,39 +1,31 @@
 import { Component } from '@angular/core';
 import { ArticleService } from '../services/article.service';
 import { ArticleInterface } from '../assets/article.interface';
-import { UsersInterface } from '../assets/users.interface';
-import { ArticleComponent } from '../components/article/article.component';
 import { Router } from '@angular/router';
-import { CommentsInterface } from '../assets/comments.interface';
+import { UserService } from '../services/user.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
 })
 export class AppComponent {
   articles: ArticleInterface[] = [];
-  users: UsersInterface[] = [];
-  comments: CommentsInterface[] = [];
   filteredUsers: ArticleInterface[] = [];
+  isDisplayed: boolean = false;
 
-  constructor(private articleService: ArticleService, private router: Router) {}
-  ngOnInit() {
-    this.router.navigate(['']);
-    this.articleService
-      .getArticles()
-      .subscribe((articles: ArticleInterface[]) => {
-        this.articles = articles;
-        this.filteredUsers = articles;
-      });
+  constructor(private articleService: ArticleService, private router: Router) {
+    this.articleService.getArticles();
 
-    this.articleService.getUser().subscribe((users: UsersInterface[]) => {
-      this.users = users;
+    this.articleService.articles$.subscribe((articles) => {
+      this.articles = articles;
+      this.filteredUsers = articles;
     });
-
-    this.articleService
-      .getComments()
-      .subscribe((comments: CommentsInterface[]) => {
-        this.comments = comments;
-      });
+  }
+  ngOnInit() {
+    this.router.events.subscribe(() => {
+      const currentUrl = this.router.url;
+      this.isDisplayed = currentUrl === '/';
+    });
   }
 
   searchUsers(author: string): ArticleInterface[] {
@@ -48,10 +40,5 @@ export class AppComponent {
           .includes(author.toLocaleLowerCase());
       }));
     }
-  }
-  onOutletLoaded(component: ArticleComponent) {
-    component.articles = this.articles;
-    component.comments = this.comments;
-    component.users = this.users;
   }
 }

@@ -1,27 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { ArticleInterface } from '../assets/article.interface';
-import { UsersInterface } from '../assets/users.interface';
-import { CommentsInterface } from '../assets/comments.interface';
+import { UserService } from './user.service';
 @Injectable({ providedIn: 'root' })
 export class ArticleService {
-  constructor(private http: HttpClient) {}
-  getArticles(): Observable<ArticleInterface[]> {
-    return this.http.get<ArticleInterface[]>(
-      'https://gorest.co.in/public/v2/posts'
-    );
-  }
+  private articles = new BehaviorSubject<ArticleInterface[]>([]);
+  public articles$ = this.articles.asObservable();
 
-  getUser(): Observable<UsersInterface[]> {
-    return this.http.get<UsersInterface[]>(
-      'https://gorest.co.in/public/v2/users'
-    );
-  }
+  constructor(private http: HttpClient, private userService: UserService) {}
 
-  getComments(): Observable<CommentsInterface[]> {
-    return this.http.get<CommentsInterface[]>(
-      'https://gorest.co.in/public/v2/comments'
-    );
+  getArticles() {
+    this.http
+      .get<ArticleInterface[]>('https://gorest.co.in/public/v2/posts')
+      .subscribe((articles) => {
+        this.articles.next(articles);
+
+        articles.forEach(({ user_id }) => {
+          this.userService.getUser(user_id);
+        });
+      });
   }
 }

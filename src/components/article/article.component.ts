@@ -1,50 +1,67 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { ArticleInterface } from '../../assets/article.interface';
-import { UsersInterface } from '../../assets/users.interface';
+import { ObjectOfUsers } from '../../assets/users.interface';
 import { CommentsInterface } from '../../assets/comments.interface';
+import { ArticleService } from '../../services/article.service';
+import { CommentService } from '../../services/comment.service';
+import { UserService } from '../../services/user.service';
 @Component({
   selector: 'app-article',
   templateUrl: 'article.component.html',
 })
 export class ArticleComponent {
-  parameterValue: number;
-  private routeSubscription: Subscription;
-  @Input() articles: ArticleInterface[] = [];
-  @Input() users: UsersInterface[] = [];
-  @Input() comments: CommentsInterface[] = [];
+  private parameterValue: number;
+  private articles: ArticleInterface[] = [];
+  private users: ObjectOfUsers = {};
 
-  specificArticle: ArticleInterface = null;
+  specificArticle: ArticleInterface | undefined = undefined;
   specificComments: CommentsInterface[] = [];
-  userName: string = '';
+  userName: string = 'Unknown author';
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private articleService: ArticleService,
+    private commentService: CommentService,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
-    this.routeSubscription = this.route.params.subscribe((params) => {
+    this.articleService.articles$.subscribe((articles) => {
+      this.articles = articles;
+      this.onArticleChange();
+    });
+
+    this.commentService.comments$.subscribe((comments) => {
+      this.specificComments = comments;
+    });
+
+    this.userService.users$.subscribe((users) => {
+      this.users = users;
+    });
+
+    this.route.params.subscribe((params) => {
       this.parameterValue = parseInt(params['id']);
-      this.specificArticle = this.filterArticlesArr(this.parameterValue);
-      this.userName = this.getAuthorName(this.specificArticle.user_id);
-      this.specificComments = this.filterCommentsArr(this.parameterValue);
+      this.commentService.getComments(this.parameterValue);
+
+      this.onArticleChange();
     });
   }
 
-  filterArticlesArr(articleId: number): ArticleInterface {
-    const article = this.articles.find((article) => article?.id === articleId);
-    return article;
+  onArticleChange() {
+    this.specificArticle = this.filterArticlesArr(this.parameterValue);
+
+    if (this.specificArticle !== undefined) {
+      this.userName = this.getAuthorName(this.specificArticle.user_id);
+    }
   }
 
-  filterCommentsArr(articleId: number): CommentsInterface[] {
-    let comment = this.comments.filter((cmt) => cmt?.post_id === articleId);
-    console.log(comment);
-    return comment;
+  filterArticlesArr(articleId: number) {
+    return this.articles.find((article) => article?.id === articleId);
   }
+
   getAuthorName(userId: number): string {
-    const user = this.users.find((user) => user.id === userId);
+    const user = this.users[userId];
     return user ? user.name : 'Unknown author';
-  }
-  ngOnDestroy() {
-    this.routeSubscription.unsubscribe();
   }
 }

@@ -5,3 +5,5 @@ export interface UsersInterface {
   gender: string;
   status: string;
 }
+
+export type ObjectOfUsers = Record<number, UsersInterface>;

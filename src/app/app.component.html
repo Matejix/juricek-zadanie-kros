@@ -1,11 +1,11 @@
 <main class="main">
   <app-header (searchEvent)="searchUsers($event)"></app-header>
   <div class="row mx-3">
-    <div class="col-md-4">
-      <app-listBox [articles]="filteredUsers" [users]="users"></app-listBox>
+    <div class="container-fluid col-md-4">
+      <app-listBox [articles]="filteredUsers"></app-listBox>
     </div>
     <div class="col-md-8">
-      <router-outlet name="text" (activate)="onOutletLoaded($event)" />
+      <router-outlet name="text" />
     </div>
   </div>
 </main>

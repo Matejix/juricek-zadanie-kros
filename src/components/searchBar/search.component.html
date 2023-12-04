@@ -1,18 +1,12 @@
 <div class="px-3 py-2 border-bottom mb-3">
   <div class="container d-flex flex-wrap justify-content-center">
-    <div class="col-6 col-lg-auto mb-2 mb-lg-0">
+    <div class="col-6 col-lg-auto mb-2 mb-lg-0 form">
       <input
         type="search"
         class="form-control"
         placeholder="Search..."
-        [(ngModel)]="author"
+        (input)="onInputChange($event)"
       />
-    </div>
-
-    <div class="text-end">
-      <button (click)="search()" type="button" class="btn btn-primary">
-        Search
-      </button>
     </div>
   </div>
 </div>

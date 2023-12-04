@@ -11,7 +11,7 @@ import { UserService } from '../services/user.service';
 export class AppComponent {
   articles: ArticleInterface[] = [];
   filteredUsers: ArticleInterface[] = [];
-  isDisplayed: boolean = false;
+  isDisplayed: boolean = true;
 
   constructor(private articleService: ArticleService, private router: Router) {
     this.articleService.getArticles();
@@ -28,17 +28,15 @@ export class AppComponent {
     });
   }
 
-  searchUsers(author: string): ArticleInterface[] {
-    console.log(author);
+  searchUsers(author: string) {
     if (this.articles.length === 0 || author === '') {
-      return this.articles;
+      this.filteredUsers = this.articles;
     } else {
-      console.log(this.articles);
-      return (this.filteredUsers = this.articles.filter((user) => {
+      this.filteredUsers = this.articles.filter((user) => {
         return user.title
           .toLocaleLowerCase()
           .includes(author.toLocaleLowerCase());
-      }));
+      });
     }
   }
 }

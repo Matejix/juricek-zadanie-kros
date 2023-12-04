@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ArticleInterface } from '../assets/article.interface';
 import { UsersInterface } from '../assets/users.interface';
-
+import { CommentsInterface } from '../assets/comments.interface';
 @Injectable({ providedIn: 'root' })
 export class ArticleService {
   constructor(private http: HttpClient) {}
@@ -16,6 +16,12 @@ export class ArticleService {
   getUser(): Observable<UsersInterface[]> {
     return this.http.get<UsersInterface[]>(
       'https://gorest.co.in/public/v2/users'
+    );
+  }
+
+  getComments(): Observable<CommentsInterface[]> {
+    return this.http.get<CommentsInterface[]>(
+      'https://gorest.co.in/public/v2/comments'
     );
   }
 }

@@ -2,10 +2,10 @@
   <app-header />
   <div class="row mx-3">
     <div class="col-md-4">
-      <app-listBox></app-listBox>
+      <app-listBox [articles]="articles" [users]="users"></app-listBox>
     </div>
     <div class="col-md-8">
-      <router-outlet name="text" />
+      <router-outlet name="text" (activate)="onOutletLoaded($event)" />
     </div>
   </div>
 </main>

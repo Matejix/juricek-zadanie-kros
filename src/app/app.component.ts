@@ -13,6 +13,7 @@ export class AppComponent {
   articles: ArticleInterface[] = [];
   users: UsersInterface[] = [];
   comments: CommentsInterface[] = [];
+  filteredUsers: ArticleInterface[] = [];
 
   constructor(private articleService: ArticleService, private router: Router) {}
   ngOnInit() {
@@ -21,7 +22,7 @@ export class AppComponent {
       .getArticles()
       .subscribe((articles: ArticleInterface[]) => {
         this.articles = articles;
-        console.log('App komponent ', articles);
+        this.filteredUsers = articles;
       });
 
     this.articleService.getUser().subscribe((users: UsersInterface[]) => {
@@ -34,7 +35,23 @@ export class AppComponent {
         this.comments = comments;
       });
   }
+
+  searchUsers(author: string): ArticleInterface[] {
+    console.log(author);
+    if (this.articles.length === 0 || author === '') {
+      return this.articles;
+    } else {
+      console.log(this.articles);
+      return (this.filteredUsers = this.articles.filter((user) => {
+        return user.title
+          .toLocaleLowerCase()
+          .includes(author.toLocaleLowerCase());
+      }));
+    }
+  }
   onOutletLoaded(component: ArticleComponent) {
     component.articles = this.articles;
+    component.comments = this.comments;
+    component.users = this.users;
   }
 }

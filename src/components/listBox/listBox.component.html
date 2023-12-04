@@ -1,0 +1,14 @@
+<ul class="text-center mb-3 me-3">
+  <li
+    (click)="onSelect(item)"
+    *ngFor="let item of articles"
+    class="p-5 text-bg-dark rounded-3"
+  >
+    <h2 class="text-white text-decoration-none">
+      {{ item.title }}
+    </h2>
+    <p>
+      {{ getAuthorName(item.user_id) }}
+    </p>
+  </li>
+</ul>

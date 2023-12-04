@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
 })
-export class AppComponent {
-  title = 'juricek-zadanie-kros';
-}
+export class AppComponent {}

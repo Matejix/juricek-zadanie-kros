@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ArticleService } from '../services/article.service';
 import { ArticleInterface } from '../assets/article.interface';
 import { Router } from '@angular/router';
-import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -12,9 +11,11 @@ export class AppComponent {
   articles: ArticleInterface[] = [];
   filteredUsers: ArticleInterface[] = [];
   isDisplayed: boolean = true;
+  page: number = 1;
+  per_page: number = 5;
 
   constructor(private articleService: ArticleService, private router: Router) {
-    this.articleService.getArticles();
+    this.articleService.getArticles(this.page, this.per_page);
 
     this.articleService.articles$.subscribe((articles) => {
       this.articles = articles;

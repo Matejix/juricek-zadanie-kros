@@ -5,7 +5,10 @@
       [ngClass]="{ 'col-md-auto': isDisplayed, 'col-md-4': !isDisplayed }"
       class="container-fluid"
     >
-      <app-listBox [articles]="filteredUsers"></app-listBox>
+      <app-listBox
+        [articles]="filteredUsers"
+        [currentPage]="page"
+      ></app-listBox>
     </div>
     <div class="col-md-8">
       <router-outlet name="text" />

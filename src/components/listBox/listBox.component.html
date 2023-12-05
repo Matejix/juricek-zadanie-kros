@@ -1,10 +1,20 @@
 <ul class="text-center mb-3 me-3">
   <li
     (click)="onSelect(item)"
-    *ngFor="let item of articles"
+    *ngFor="let item of articles; let i = index"
     class="p-5 mb-2 text-bg-dark rounded-3"
   >
-    <h2 class="text-white text-decoration-none">
+    <h2
+      *ngIf="i + 1 === articles.length"
+      class="text-white text-decoration-none"
+      #lastList
+    >
+      {{ item.title }}
+    </h2>
+    <h2
+      *ngIf="i + 1 != articles.length"
+      class="text-white text-decoration-none"
+    >
       {{ item.title }}
     </h2>
     <p>

@@ -10,11 +10,13 @@ export class ArticleService {
 
   constructor(private http: HttpClient, private userService: UserService) {}
 
-  getArticles() {
+  getArticles(page: number, per_page: number = 5) {
     this.http
-      .get<ArticleInterface[]>('https://gorest.co.in/public/v2/posts')
+      .get<ArticleInterface[]>(
+        `https://gorest.co.in/public/v2/posts?page=${page}}&per_page=${per_page}`
+      )
       .subscribe((articles) => {
-        this.articles.next(articles);
+        this.articles.next([...this.articles.value, ...articles]);
 
         articles.forEach(({ user_id }) => {
           this.userService.getUser(user_id);

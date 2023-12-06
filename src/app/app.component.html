@@ -3,11 +3,14 @@
     class="position-sticky w-100 top-0 z-3"
     (searchEvent)="searchUsers($event)"
   ></app-header>
+
   <div class="row mx-3">
+    <!-- Desktop window-->
     <div
       [ngClass]="{
-        'col-md-auto container-fluid': isDisplayed,
-        'col-md-4': !isDisplayed
+        'col-md-auto d-md-block container-fluid': isDisplayed,
+        'col-md-4 d-md-block': !isDisplayed,
+        'd-none': !isDisplayed && isMobileApp
       }"
     >
       <app-listBox
@@ -16,7 +19,7 @@
         [users]="users"
       ></app-listBox>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-8 d-md-block">
       <router-outlet name="text" />
     </div>
   </div>

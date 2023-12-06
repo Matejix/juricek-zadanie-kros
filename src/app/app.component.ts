@@ -4,6 +4,7 @@ import { ArticleInterface } from '../assets/article.interface';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { ObjectOfUsers } from '../assets/users.interface';
+import { ResponsiveService } from '../services/responsive.service';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ export class AppComponent {
   users: ObjectOfUsers = undefined;
   filteredArticles: ArticleInterface[] = [];
   isDisplayed: boolean = true;
+  isMobileApp: boolean = false;
   page: number = 1;
   per_page: number = 5;
   authorQuery: string = '';
@@ -21,9 +23,12 @@ export class AppComponent {
   constructor(
     private articleService: ArticleService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private responsiveService: ResponsiveService
   ) {
     this.articleService.getArticles(this.page, this.per_page);
+    this.isMobileApp = responsiveService.isMobile;
+    console.log(this.isMobileApp);
 
     this.articleService.articles$.subscribe((articles) => {
       this.articles = articles;

@@ -1,6 +1,24 @@
 .article {
   font-family: "Libre Baskerville", serif;
 
+  span {
+    position: relative;
+  }
+
+  span:before {
+    position: absolute;
+    content: open-quote;
+    font-size: 4em;
+    margin-left: -0.6em;
+    margin-top: -0.4em;
+    opacity: 0.5;
+  }
+  .text-area {
+    width: 80%;
+    height: fit-content;
+    border-radius: 21px;
+  }
+
   .text {
     padding: 2rem;
     line-height: 2rem;
@@ -14,4 +32,43 @@
   height: 2px;
   background-color: #ddb967;
   opacity: 0.5;
+}
+
+@media only screen and (max-width: 768px) {
+  .article {
+    padding: 0;
+
+    span {
+      font-size: small;
+    }
+
+    span:before {
+      position: absolute;
+      content: open-quote;
+      font-size: 2em;
+      margin-left: -0.6em;
+      margin-top: -0.4em;
+      opacity: 0.5;
+    }
+
+    .card-body {
+      padding: 0.5rem;
+    }
+    h2 {
+      font-size: large;
+      font-weight: bold;
+    }
+
+    .author {
+      font-size: small;
+    }
+
+    .text-area {
+      width: 100%;
+    }
+  }
+  /* For mobile phones: */
+  .text {
+    padding: 1rem !important;
+  }
 }

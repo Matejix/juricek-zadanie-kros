@@ -16,7 +16,7 @@ export class UserService {
     this.http
       .get(`https://gorest.co.in/public/v2/users/${userId}`)
       .subscribe((res: UsersInterface) => {
-        this.users.next({ ...this.users, [userId]: res });
+        this.users.next({ ...this.users.value, [userId]: res });
       });
   }
 }

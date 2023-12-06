@@ -9,6 +9,7 @@ import { UserService } from '../../services/user.service';
 @Component({
   selector: 'app-article',
   templateUrl: 'article.component.html',
+  styleUrls: ['article.component.scss'],
 })
 export class ArticleComponent {
   private parameterValue: number;
@@ -61,7 +62,6 @@ export class ArticleComponent {
   }
 
   getAuthorName(userId: number): string {
-    const user = this.users[userId];
-    return user ? user.name : 'Unknown author';
+    return this.users[userId]?.name || 'Unknown author';
   }
 }

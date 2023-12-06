@@ -1,0 +1,6 @@
+.scrollAble {
+  height: calc(100vh - 140px);
+  overflow: auto;
+  position: sticky;
+  top: 140px;
+}

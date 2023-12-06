@@ -1,0 +1,17 @@
+.article {
+  font-family: "Libre Baskerville", serif;
+
+  .text {
+    padding: 2rem;
+    line-height: 2rem;
+  }
+}
+
+.line {
+  margin: 0 auto;
+  margin-bottom: 2rem;
+  width: 80%;
+  height: 2px;
+  background-color: #ddb967;
+  opacity: 0.5;
+}

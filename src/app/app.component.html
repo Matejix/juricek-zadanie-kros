@@ -1,13 +1,19 @@
 <main class="main">
-  <app-header (searchEvent)="searchUsers($event)"></app-header>
+  <app-header
+    class="position-sticky w-100 top-0 z-3"
+    (searchEvent)="searchUsers($event)"
+  ></app-header>
   <div class="row mx-3">
     <div
-      [ngClass]="{ 'col-md-auto': isDisplayed, 'col-md-4': !isDisplayed }"
-      class="container-fluid"
+      [ngClass]="{
+        'col-md-auto container-fluid': isDisplayed,
+        'col-md-4': !isDisplayed
+      }"
     >
       <app-listBox
-        [articles]="filteredUsers"
+        [articles]="filteredArticles"
         [currentPage]="page"
+        [users]="users"
       ></app-listBox>
     </div>
     <div class="col-md-8">

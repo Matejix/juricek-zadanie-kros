@@ -1,24 +1,31 @@
-<div class="text-bg-dark pt-3 px-3 pt-md-5 px-md-5 rounded-3 text-center">
+<div
+  class="article text-bg-dark pt-3 px-3 pt-md-5 px-md-5 rounded-3 text-center"
+>
   <div class="my-3 py-3">
     <h2 class="display-5">{{ specificArticle?.title }}</h2>
-    <p class="lead">Author name: {{ userName }}</p>
+    <p class="lead gold-color opacity-75">Author name: {{ userName }}</p>
   </div>
   <div
-    class="bg-light shadow-sm mx-auto"
-    style="width: 80%; height: 60vh; border-radius: 21px 21px 0 0"
+    class="bg-light shadow-sm mx-auto justify-content-center"
+    style="width: 80%; height: fit-content; border-radius: 21px"
   >
-    <p class="text-black">{{ specificArticle?.body }}</p>
+    <p class="text text-black">{{ specificArticle?.body }}</p>
   </div>
 
   <section class="p-4 w-100" style="border-radius: 0.5rem 0.5rem 0 0">
+    <h3 class="d-block mb-2">Comments</h3>
+    <div class="line"></div>
     <div
       *ngFor="let item of specificComments"
       class="row d-flex justify-content-center"
     >
       <div class="col-md-8 col-lg-6">
-        <div class="card shadow-0 border" style="background-color: #f0f2f5">
+        <div
+          class="card shadow-0 border mb-2"
+          style="background-color: #f0f2f5"
+        >
           <div class="card-body p-4">
-            <div class="card mb-4">
+            <div class="card">
               <div class="card-body">
                 <span class="text-black"> {{ item?.body }} </span>
                 <div class="d-flex justify-content-between">
@@ -35,6 +42,7 @@
                   </div>
                 </div>
               </div>
+              <p class="gold-color">{{ item?.email }}</p>
             </div>
           </div>
         </div>

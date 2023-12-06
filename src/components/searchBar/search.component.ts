@@ -4,6 +4,7 @@ import { Subject, debounceTime } from 'rxjs';
 @Component({
   selector: 'app-search',
   templateUrl: `search.component.html`,
+  styleUrls: ['searchBar.component.scss'],
 })
 export class SearchComponent {
   private searchSubject = new Subject<string>();

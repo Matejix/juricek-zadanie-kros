@@ -1,3 +1,7 @@
+# Pred spustením
+Treba nainštalovať všetky potrebné balíčky cez príkaz `npm install`.
+Na spustenie projektu v browsery je potrebné zadať `ng serve --open`
+
 # JuricekZadanieKros
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.3.
